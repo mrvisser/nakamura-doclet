@@ -68,6 +68,10 @@ public class NakamuraDoclet extends JAXDoclet<NakamuraJAXConfiguration> {
   }
 
   public void start() {
+    // first run standard docs
+    HtmlDoclet.start(conf.parentConfiguration.root);
+    
+    // now run jax-docs.
     String baseDir = conf.parentConfiguration.destDirName;
     
     // first generate jaxb docs
@@ -79,7 +83,6 @@ public class NakamuraDoclet extends JAXDoclet<NakamuraJAXConfiguration> {
     JAXRSDoclet jaxrs = new JAXRSDoclet(conf.parentConfiguration.root);
     addOption(jaxrs.conf.parentConfiguration, "-link", "../jaxb");
     addOrReplaceOption(jaxrs.conf.parentConfiguration, "-d", baseDir+"jaxrs/");
-    
     jaxrs.start();
   }
 
